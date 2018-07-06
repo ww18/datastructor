@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数据结构之队列</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<script type="text/javascript">
+	function Queue(){
+		this.dataStore = [];
+		this.enQueue = enQueue; //入队
+		this.deQueue = deQueue; //出队
+		this.empty = empty;     //是否为空
+		this.toString = toString; //打印
+		this.front = front;      //读取队首
+		this.back = back;        //读取队尾
+	}
+	function enQueue(el){
+		this.dataStore.push(el);
+	}
+	function deQueue(){
+		return this.dataStore.shift();
+	}
+	function empty(){
+		return this.dataStore.length;
+	}
+	function toString(){
+		var str = ''
+		for(var i = 0; i < this.dataStore.length; i++){
+			str += this.dataStore[i] + '\n';
+		}
+		return str;
+	}
+	function front(){
+		return this.dataStore[0];
+	}
+	function back(){
+		return this.dataStore[this.dataStore.length-1];
+	}
+
+	var queue = new Queue();
+	queue.enQueue('小王');
+	queue.enQueue('小绿');
+	queue.enQueue('小红');
+	console.log(queue.toString());
+	queue.deQueue();
+	console.log(queue.toString());
+
+	/* 方块舞的舞伴分配问题 */
+	var manDancers = new Queue();
+	manDancers.enQueue('老张');
+	manDancers.enQueue('老王');
+	var womanDancers = new Queue();
+	womanDancers.enQueue('小红');
+	womanDancers.enQueue('小绿');
+	function getDancers(){
+		return '👨'+manDancers.deQueue() + '👩' + womanDancers.deQueue();
+	}
+	console.log('[第一对舞伴]' + getDancers());
+	console.log('[第二对舞伴]' + getDancers());
+
+
+	/*** 急诊队列的问题 ***/
+	function Patient(name,code){
+		this.name = name;
+		this.code = code;
+	}
+
+	function deQueue(){
+		var pri = 0;
+		for(var i = 0; i < this.dataStore.length; i++){
+			if(this.dataStore[i].code > this.dataStore[pri].code){
+				pri = i;
+			}
+		}
+		return this.dataStore.splice(i,1);
+	}
+
+	var pat = new Patient('老王',3);
+	var pat1 = new Patient('老王',3);
+	var pat2 = new Patient('老王',3);
+	var pat3 = new Patient('老王',3);
+	var pat4 = new Patient('老王',3);
+	var pat5 = new Patient('老王',3);
+
+
+
+</script>
+</body>
+</html>

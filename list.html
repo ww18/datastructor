@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数据结构之列表</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<script type="text/javascript">
+	function List(){
+		this.listSize = 0;
+		this.dataStore = [];
+		this.pos = 0;
+		this.next = next;//包括这个及以下都是方法
+		this.prev = prev;
+		this.front = front; //指针到最前面
+		this.curPos = curPos;
+		this.moveTo = moveTo;
+		this.end = end;
+		this.insert = insert;
+		this.append = append;
+		this.remove = remove;
+		this.contains = contains;
+		this.find = find;
+		this.clear = clear;
+		this.toString = toString;
+		this.getElement = getElement;
+		this.length = length;
+	}
+	function find(el){
+		for(var i = 0; i < this.dataStore.length;i++){
+			if(this.dataStore[i] == el){
+				return i;
+			}
+		}
+		return -1;
+	}
+	function insert(el, after){
+		var i = this.find(after);
+		if(i > -1){
+			this.dataStore.splice(i+1,0,el);
+			this.listSize++;
+			return true;
+		}
+		return false;
+	}
+	function append(el){
+		var i = this.find(el);
+		if(i == -1){
+			this.dataStore.push(el);
+			this.listSize++;
+			return true;
+		}
+		return false;
+	}
+	function remove(el){
+		var i = this.find(el);
+		if(i > -1){
+			this.dataStore.splice(i,1);
+			this.listSize--;
+			return true;
+		}
+		return false;
+	}
+	function next(){
+		if(this.pos < this.listSize){
+			this.pos++;
+		}
+	}
+	function prev(){
+		if(this.pos > 0){
+			this.pos--;
+		}
+	}
+	function front(){
+		this.pos = 0;
+	}
+	function end(){
+		this.pos = this.listSize-1;
+	}
+	function clear(){
+		this.dataStore.length = 0;
+		this.pos = 0;
+		this.listSize = 0;
+		// delete this.dataStore;  //这句是干嘛用的，不能写这句
+	}
+	function curPos(){
+		return this.pos;
+	}
+	function moveTo(pos){
+		this.pos = pos;
+	}
+	function toString(){
+		return this.dataStore.join(',');
+	}
+	function contains(el){
+		var i = this.find(el);
+		if(i > -1){
+			return true;
+		}
+		return false;
+	}
+	function getElement(){
+		return this.dataStore[this.pos];
+	}
+	function length(){
+		return this.listSize;
+	}
+
+
+	var list = new List();
+	list.append('小红');
+	list.append('小王');
+	list.append('小丽');
+	// list.next();
+	// list.next();
+	// alert(list.getElement());
+	list.insert('小李','小王');
+	list.clear();
+	list.append('小于');
+	//迭代器
+	for(list.front();list.curPos()<list.length();list.next()){
+		console.log(list.getElement());
+	}
+
+</script>
+</body>
+</html>

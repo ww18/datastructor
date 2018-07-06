@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数据结构之栈</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<script type="text/javascript">
+	function Stack(){
+		this.dataStore = [];
+		this.top = 0;     //top的值会和长度一样，比数组的角标多1
+		this.push = push; //入栈
+		this.pop = pop; //出栈
+		this.peek = peek;//返回栈顶元素
+		this.clear = clear;
+		this.length = length;
+	}
+	function push(data){
+		this.dataStore[this.top++] = data;
+	}
+	function pop(){
+		return this.dataStore[--this.top];
+	}
+	function peek(){
+		return this.dataStore[this.top-1];
+	}
+	function clear(){
+		this.top = 0;
+		this.dataStore = [];
+	}
+	function length(){
+		return this.top;
+	}
+
+
+	var stack = new Stack();
+	stack.push('第一个元素');
+	stack.push('第二个元素');
+	stack.push('第三个元素');
+	stack.push('第四个元素');
+	console.log(stack.length());
+	console.log(stack.peek());
+	console.log(stack.pop());
+	console.log(stack.length());
+
+/*============== 判断一个字符串是不是回文。1001  racecar dad ===============*/
+	function isPalindrome(word){
+		var stack = new Stack();
+		for(var i = 0; i < word.length;i++){
+			stack.push(word[i]);
+		}
+		var sword = '';
+		while(stack.length()){
+			sword += stack.pop();
+		}
+		if(sword === word){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	var word = 'racecara';
+	alert(isPalindrome(word));
+</script>
+</body>
+</html>
