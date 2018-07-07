@@ -38,26 +38,26 @@
 		return this.dataStore[this.dataStore.length-1];
 	}
 
-	var queue = new Queue();
-	queue.enQueue('小王');
-	queue.enQueue('小绿');
-	queue.enQueue('小红');
-	console.log(queue.toString());
-	queue.deQueue();
-	console.log(queue.toString());
+//	var queue = new Queue();
+//	queue.enQueue('小王');
+//	queue.enQueue('小绿');
+//	queue.enQueue('小红');
+//	console.log(queue.toString());
+//	queue.deQueue();
+//	console.log(queue.toString());
 
 	/* 方块舞的舞伴分配问题 */
-	var manDancers = new Queue();
-	manDancers.enQueue('老张');
-	manDancers.enQueue('老王');
-	var womanDancers = new Queue();
-	womanDancers.enQueue('小红');
-	womanDancers.enQueue('小绿');
-	function getDancers(){
-		return '👨'+manDancers.deQueue() + '👩' + womanDancers.deQueue();
-	}
-	console.log('[第一对舞伴]' + getDancers());
-	console.log('[第二对舞伴]' + getDancers());
+//	var manDancers = new Queue();
+//	manDancers.enQueue('老张');
+//	manDancers.enQueue('老王');
+//	var womanDancers = new Queue();
+//	womanDancers.enQueue('小红');
+//	womanDancers.enQueue('小绿');
+//	function getDancers(){
+//		return '👨'+manDancers.deQueue() + '👩' + womanDancers.deQueue();
+//	}
+//	console.log('[第一对舞伴]' + getDancers());
+//	console.log('[第二对舞伴]' + getDancers());
 
 
 	/*** 急诊队列的问题 ***/
@@ -73,16 +73,24 @@
 				pri = i;
 			}
 		}
-		return this.dataStore.splice(i,1);
+		return this.dataStore.splice(pri,1);
 	}
 
 	var pat = new Patient('老王',3);
-	var pat1 = new Patient('老王',3);
-	var pat2 = new Patient('老王',3);
-	var pat3 = new Patient('老王',3);
-	var pat4 = new Patient('老王',3);
-	var pat5 = new Patient('老王',3);
+	var pat1 = new Patient('老赵',4);
+	var pat2 = new Patient('老钱',5);
+	var pat3 = new Patient('老孙',6);
+	var pat4 = new Patient('老李',9);
+	var pat5 = new Patient('老周',0);
 
+	var qu = new Queue();
+	qu.enQueue(pat);
+	qu.enQueue(pat1);
+	qu.enQueue(pat2);
+	qu.enQueue(pat3);
+	qu.enQueue(pat4);
+	qu.enQueue(pat5);
+	console.log(qu.deQueue());
 
 
 </script>

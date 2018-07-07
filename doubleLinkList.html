@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>双向链表</title>
+</head>
+<body>
+<script>
+  function Node(item){
+    this.element = item;
+    this.prev = null;
+    this.next = null;
+  }
+  function LList(){
+    this.head = new Node('head');
+    this.insert = insert;
+    this.find = find;
+    this.remove = remove;
+    this.display = display;
+    this.displayReverse = displayReverse;
+    this.findLast = findLast;
+  }
+  function find(item){
+    var currNode = this.head;
+    while(currNode && currNode.element != item){
+      currNode = currNode.next;
+    }
+    return currNode;
+  }
+  function insert(newEl, item){
+    var currNode = this.head;
+    var newNode = new Node(newEl);
+    while(currNode.next && currNode.element != item){
+      currNode = currNode.next;
+    }
+    newNode.prev = currNode;
+    newNode.next = currNode.next;
+    currNode.next = newNode;
+  }
+  function remove(item){
+    var currNode = this.find(item);
+    if(currNode){
+      var prev = currNode.prev;
+      var next = currNode.next;
+      prev.next = next;
+      next.prev = prev;
+      currNode.next = null;
+      currNode.prev = null;
+    }
+  }
+  function display(){
+    var currNode = this.head.next;
+    while(currNode){
+      console.log(currNode.element);
+      currNode = currNode.next;
+    }
+  }
+  function findLast(){
+    var currNode = this.head;
+    while(currNode.next){
+      currNode = currNode.next;
+    }
+    return currNode;
+  }
+  function displayReverse(){
+    var currNode = this.findLast();
+    while(currNode.prev){
+      console.log(currNode.element);
+      currNode = currNode.prev;
+    }
+  }
+
+  var lists = new LList();
+  lists.insert('first');
+  lists.insert('second');
+  lists.insert('third');
+  lists.display();
+  lists.remove('second');
+  lists.display();
+  lists.displayReverse();
+</script>
+</body>
+</html>

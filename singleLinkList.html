@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>单向链表</title>
+</head>
+<body>
+<script>
+  function Node(element){
+    this.element = element;
+    this.next = null;
+  }
+  function LList(){
+    this.head = new Node('head');
+    this.find = find;
+    this.insert = insert;
+    this.remove = remove;
+    this.display = display;
+  }
+  function find(item){
+    //如果找不到呢？所以需要添加next判断，不然就死循环了，如果没有找到则返回null
+    var currNode = this.head.next;
+    while(currNode && currNode.element != item){
+      currNode = currNode.next;
+    }
+    return currNode;
+  }
+  function insert(newEl, item){
+//    var currNode = this.find(item);
+//    var newNode = new Node(newEl);
+//    if(currNode){//不是最后一个
+//      newNode.next = currNode.next;
+//      currNode.next = newNode;
+//    }else{//最后一个
+//      //首先要找到最后一个
+//      var node = this.head;
+//      while(node.next){
+//        node = node.next;
+//      }
+//      node.next = newNode;
+//    }
+    //有更简单的实现
+    var currNode = this.head;
+    var newNode = new Node(newEl);
+    while(currNode.next && currNode.element != item){
+      currNode = currNode.next;
+    }
+    newNode.next = currNode.next;
+    currNode.next = newNode;
+  }
+  function remove(item){
+    var prevNode = this.head.next;
+    var currNode = this.find(item);
+    if(currNode){
+      while(prevNode.next && prevNode.next.element != item){
+        prevNode = prevNode.next;
+      }
+      prevNode.next = currNode.next;
+      currNode.next = null;
+    }
+  }
+  function display(){
+    var currNode = this.head.next;
+    while(currNode){
+      console.log(currNode.element);
+      currNode = currNode.next;
+    }
+  }
+
+  var lists = new LList();
+  lists.insert('first');
+  lists.insert('second');
+  lists.insert('third');
+  lists.display();
+  lists.remove('second');
+  lists.display();
+
+</script>
+</body>
+</html>
