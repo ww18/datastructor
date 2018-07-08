@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>字典</title>
+</head>
+<body>
+<script>
+  function Dictionary(){
+    this.dataStore = {};
+    this.find = find;
+    this.add = add;
+    this.count = count;
+    this.remove = remove;
+    this.clear = clear;
+    this.showAll = showAll;
+  }
+  function find(){
+
+  }
+  function add(key,value){
+    this.dataStore[key] = value;
+  }
+  function count(){
+    return Object.keys(this.dataStore).length;
+  }
+  function remove(key){
+    delete this.dataStore[key];
+  }
+  function showAll(){
+    var keys = Object.keys(this.dataStore).sort();
+    for(var key of keys){
+      console.log(key + ' is ' + this.dataStore[key]);
+    }
+  }
+  function clear(){
+    this.dataStore = {};
+  }
+  var dir = new Dictionary();
+  dir.add('naike',345);
+  dir.add('lining',243);
+  dir.add('NB',432);
+  console.log(dir);
+  dir.showAll();
+  console.log(dir.count());
+  dir.remove('lining');
+  console.log(dir.count());
+  dir.clear();
+  console.log(dir.count());
+</script>
+</body>
+</html>
