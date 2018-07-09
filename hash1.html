@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>散列-hash-线性探测法</title>
+</head>
+<body>
+<script>
+    function HashTable(){
+        this.table = new Array(137); //质数的长度
+        this.simpleHash = simpleHash;
+        this.betterHash = betterHash;
+        this.get = get;
+        this.put = put;
+        this.display = display;
+    }
+    //除留取余法
+    function simpleHash(data){
+        var total = 0;
+        for(var i = 0; i < data.length; i++){
+            total += data.charCodeAt(i);
+        }
+        return total % this.table.length;
+    }
+    //霍纳算法
+    function betterHash(data){
+        var H = 37;
+        var total = 0;
+        for(var i = 0; i < data.length; i++){
+            total += H*total + data.charCodeAt(i);
+        }
+        //total怎么会小于0呢？
+        if(total < 0){
+            total += this.table.length-1;
+        }
+        return total % this.table.length;
+    }
+    //线性探测法取角标
+    function get(data){
+        var pos = this.simpleHash(data);
+        for(var i = pos; i < this.table.length; i++){
+            if(this.table[i] == data){
+                return i;
+            }
+        }
+        return undefined;
+    }
+    function put(data){
+        var i = this.simpleHash(data);
+//        var i = this.betterHash(data);
+//        this.table[i] = data;
+        var index = 0;
+        while(this.table[i]){
+            i++;
+        }
+        this.table[i] = data;
+    }
+    function display(){
+        for(var i = 0; i < this.table.length; i++){
+            if(this.table[i] != undefined){
+                console.log('key: ' + i + '，value: ' + this.table[i]);
+            }
+        }
+    }
+
+    var hash = new HashTable();
+    hash.put('china');
+    hash.put('nicha');
+    hash.put('Japan');
+    hash.put('America');
+    hash.put('75654');
+    hash.put('37541');
+    hash.put('69875');
+    console.log(hash.get('nicha'));
+    hash.display();
+</script>
+</body>
+</html>
