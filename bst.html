@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>二叉树-二叉查找树</title>
+</head>
+<body>
+<script>
+  function Node(data, left, right){
+    this.data = data;
+    this.left = left;
+    this.right = right;
+    this.show = show;
+  }
+  function show(){
+    return this.data;
+  }
+  function BST(data){
+    this.root = null;
+    this.insert = insert;
+    this.middleOrder = middleOrder;
+    this.firstOrder = firstOrder;
+    this.lastOrder = lastOrder;
+    this.getMin = getMin;
+    this.getMax = getMax;
+    this.find = find;
+    this.remove = remove;
+  }
+  function insert(data){
+    var node = new Node(data, null, null);
+    let current = this.root;
+    if(!current){
+      this.root = node;
+    }else{
+      var parent;
+      while(true){
+        parent = current;
+        if(current.data > data){
+          current = current.left;
+          if(current == null){
+            parent.left = node;
+            break;
+          }
+        }else{
+          current = current.right;
+          if(current == null){
+            parent.right = node;
+            break;
+          }
+        }
+      }
+    }
+  }
+  function middleOrder(node){ //中序遍历
+    if(node != null){
+      middleOrder(node.left);
+      console.log(node.data);
+      middleOrder(node.right);
+    }
+  }
+  function lastOrder(node){ //后序遍历
+    if(node != null){
+      console.log(node.data);
+      lastOrder(node.left);
+      lastOrder(node.right);
+    }
+  }
+  function firstOrder(node){ //先序遍历
+    if(node != null){
+      console.log(node.data);
+      firstOrder(node.left);
+      firstOrder(node.right);
+    }
+  }
+  function getMin(node){
+    let root = node;
+    while(root.left != null){
+      root = root.left;
+    }
+    return root;
+  }
+  function getMax(node){
+    let root = node;
+    while(root.right != null){
+      root = root.right;
+    }
+    return root;
+  }
+  function find(data){
+    var current = this.root;
+    while(current != null){
+      if(current.data > data){
+        current = current.left;
+      }else if(current.data < data){
+        current = current.right;
+      }else{
+        return current;
+      }
+    }
+    return null;
+  }
+  function remove(data){
+    var current = this.root;
+    removeNode(current, data);
+  }
+  //该递归函数，直接操作的是node节点，找到需要删除的节点，并返回删除操作后的节点
+  function removeNode(node, data){
+    if(node ==null){
+      return null
+    }else{
+      if(node.data > data){
+        node.left = removeNode(node.left, data);
+        return node;
+      }else if(node.data < data){
+        node.right = removeNode(node.right, data);
+        return node;
+      }else{
+        if(node.left == null && node.right == null){
+          return null;
+        }else if(node.left == null){
+          return node.right;
+        }else if(node.right == null){
+          return node.left;
+        }
+        //为什么是right，因为如果该节点左右子树都有的化，需要将右侧的最小值放到删除的位置，
+        //然后删除掉右侧的最小值
+        var tempNode = getMin(node.right);
+        node.data = tempNode.data;
+        node.right = removeNode(node.right, tempNode.data);
+        return node;
+      }
+    }
+  }
+
+  var bst = new BST();
+  bst.insert(43);
+  bst.insert(52);
+  bst.insert(12);
+  bst.insert(34);
+  bst.insert(89);
+  console.log(bst);
+  bst.middleOrder(bst.root);
+  console.log('最小值：' + bst.getMin(bst.root));
+  console.log('最大值： ' + bst.getMax(bst.root));
+  bst.remove(34);
+  bst.middleOrder(bst.root);
+</script>
+</body>
+</html>
