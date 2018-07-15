@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>图和图的算法</title>
+</head>
+<body>
+<script>
+  //数据的构成，用二维数组实现，角标表示顶点值，值表示连接的其他顶点
+  function Graph(v){
+    this.vertices = v; //顶点的个数
+    this.edges = 0; //边的个数
+    this.adjData = []; //用来存储顶点的数据，因为下面的邻接表只是存储了关系，没有存储顶点值
+    this.adj = [];  //邻接表，用来存储顶点之间的关系，但是是有顺序的
+    for(var i = 0;i < this.vertices; i++){
+      this.adj[i] = [];
+    }
+    this.addEdge = addEdge;
+    this.show = show;
+  }
+  function addEdge(data,v,w){
+    this.adjData.push(data);
+    this.adj[v].push(w);
+    this.adj[w].push(v);
+    this.edges++;
+  }
+  function show(){
+    for(var i = 0; i < this.vertices; i++){
+      var data = this.adjData[i];
+      var edgesA = this.adj[i];
+      var edgesData = '';
+      for(var j = 0; j < edgesA.length; j++){
+        edgesData += this.adjData[this.adj[i][j]] + ' ';
+      }
+      console.log(data + '相邻的顶点值为：' + edgesData);
+    }
+  }
+
+  var graph = new Graph(5);
+  graph.addEdge(6,0,1);
+  graph.addEdge(7,1,2);
+  graph.addEdge(4,2,3);
+  graph.addEdge(5,3,4);
+  graph.addEdge(9,4,0);
+  graph.show();
+</script>
+</body>
+</html>

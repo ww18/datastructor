@@ -60,9 +60,9 @@
   }
   function lastOrder(node){ //后序遍历
     if(node != null){
-      console.log(node.data);
       lastOrder(node.left);
       lastOrder(node.right);
+      console.log(node.data);
     }
   }
   function firstOrder(node){ //先序遍历
