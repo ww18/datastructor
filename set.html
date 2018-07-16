@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>集合</title>
+</head>
+<body>
+<script>
+    function Set(){
+        this.dataStore = [];
+        this.add = add;
+        this.remove = remove;
+        this.show = show;
+        this.union = union;
+        this.interset = interset;
+        this.difference = difference;
+        this.contain = contain;
+        this.isChild = isChild;
+    }
+    function add(data){
+        if(this.dataStore.indexOf(data) < 0){
+            this.dataStore.push(data);
+        }else{
+            return false;
+        }
+    }
+    function remove(data){
+        var pos = this.dataStore.indexOf(data);
+        if(pos > -1){
+            this.dataStore.splice(pos,1);
+        }else{
+            return false;
+        }
+    }
+    function show(){
+        return this.dataStore;
+    }
+    //并集
+    function union(set){
+        var newSet = new Set();
+        for(var i = 0; i < this.dataStore.length; i++){
+            newSet.add(this.dataStore[i]);
+        }
+        for(var i = 0; i < set.dataStore.length; i++){
+            newSet.add(set.dataStore[i]);
+        }
+        return newSet;
+    }
+    function contain(data){
+        if(this.dataStore.indexOf(data) > -1){
+            return true;
+        }
+        return false
+    }
+    //交集
+    function interset(set){
+        var newSet = new Set();
+        for(var value of this.dataStore){
+            if(set.contain(value)){
+                newSet.add(value);
+            }
+        }
+        return newSet;
+    }
+    //补集
+    function difference(set){
+        var newSet = new Set();
+        for(var value of this.dataStore){
+            if(!set.contain(value)){
+                newSet.add(value);
+            }
+        }
+        return newSet;
+    }
+    //是否是子集
+    function isChild(set){
+        var flag = true;
+        for(var val of set.dataStore){
+            if(!this.contain(val)){
+                flag = false;
+            }
+        }
+        return flag;
+    }
+
+
+
+    var set = new Set();
+    set.add('1');
+    set.add('2');
+    set.add(3);
+    set.add('4');
+//    console.log(set.show());
+//    set.remove('1231');
+    console.log(set.show());
+
+    var set1 = new Set();
+    set1.add('1');
+//    set1.add('5');
+//    set1.add(6);
+    console.log(set.union(set1));
+    console.log(set.interset(set1));
+    console.log(set.difference(set1));
+    console.log(set.isChild(set1));
+</script>
+</body>
+</html>
