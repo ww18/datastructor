@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择排序</title>
+</head>
+<body>
+<script>
+    function Select(arr){
+        this.arr = arr;
+        this.selectSort = selectSort;
+    }
+    function selectSort(){
+        var len = this.arr.length, arr = this.arr;
+        //从数组的头开始，第一个和剩下的所有进行比较，第一次把最小的放到第一个，以此类推
+        //我写的这个是反着的，从最后一个和前面的比较，得出最大值，以此类推，但是不叫选择排序，这个空间复杂度要高
+//        for(var outer = len-1; outer > 0; outer--){
+//            for(var inner = outer-1; inner > -1; inner--){
+//                var temp = arr[outer];
+//                if(arr[inner] > temp){
+//                    arr[outer] = arr[inner];
+//                    arr[inner] = temp;
+//                }
+//            }
+//        }
+        var min;
+        for(var outer = 0; outer < len-1; outer++){
+            min = outer;
+            //该循环就是找到最小值的位置
+            for(var inner = outer+1; inner < len; inner++){
+                if(arr[inner] < arr[min]){
+                    min = inner;
+                }
+            }
+            var temp = arr[outer];
+            arr[outer] = arr[min];
+            arr[min] = temp;
+        }
+    }
+
+    var arr = [5,6,4,3,8,1];
+    var arr1 = [1,8,3,2,9,5,4,7];
+    var insert = new Select(arr1);
+    insert.selectSort();
+    console.log(insert.arr);
+</script>
+</body>
+</html>

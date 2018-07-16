@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>希尔排序</title>
+</head>
+<body>
+<script>
+    function Shell(arr){
+        this.arr = arr;
+        this.gaps = [5,3,1];
+        this.shellSort = shellSort;
+    }
+    function shellSort(){
+        for(var g = 0; g < this.gaps.length; g++){
+            for(var i = this.gaps[g]; i < this.arr.length; i++){
+                var temp = this.arr[i];
+                for(var j = i; j >= this.gaps[g] &&  this.arr[j-this.gaps[g]] > temp; j -= this.gaps[g]){
+                    this.arr[j] = this.arr[j-this.gaps[g]];
+                }
+                this.arr[j] = temp;
+            }
+            console.log('调换后', this.arr);
+        }
+    }
+
+    var arr = [10,8,3,2,5,9,4,7,35,47,20];
+    var shell = new Shell(arr);
+    shell.shellSort();
+
+</script>
+</body>
+</html>
