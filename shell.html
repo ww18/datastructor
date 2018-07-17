@@ -10,11 +10,15 @@
         this.arr = arr;
         this.gaps = [5,3,1];
         this.shellSort = shellSort;
+        this.dynamicSort = dynamicSort;
+        this.swap = swap;
     }
     function shellSort(){
         for(var g = 0; g < this.gaps.length; g++){
+            //以gaps的值为基准，进行查找
             for(var i = this.gaps[g]; i < this.arr.length; i++){
                 var temp = this.arr[i];
+                //感觉这层循环写的很巧妙，j-this.gaps[g]这个是前面的值，也是将小的值放到前面去，间隔是this.gaps[g]，所以减去这个值
                 for(var j = i; j >= this.gaps[g] &&  this.arr[j-this.gaps[g]] > temp; j -= this.gaps[g]){
                     this.arr[j] = this.arr[j-this.gaps[g]];
                 }
@@ -23,10 +27,33 @@
             console.log('调换后', this.arr);
         }
     }
+    function swap(arr, index1, index2){
+        var temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
+    function dynamicSort(){
+        var N = this.arr.length;
+        var h = 1;
+        //3这个值是怎么来的
+        while(h < N/3){
+            h = 3 * h + 1;
+        }
+        while(h >= 1){
+            for(var i = h; i < N; i++){
+                for(var j = i; j >= h && this.arr[j] < this.arr[j-h]; j -= h){
+                    this.swap(this.arr, j, j-h);
+                }
+            }
+            h = (h-1)/3;
+        }
+    }
 
     var arr = [10,8,3,2,5,9,4,7,35,47,20];
     var shell = new Shell(arr);
-    shell.shellSort();
+//    shell.shellSort();
+    shell.dynamicSort();
+    console.log('调换后', shell.arr);
 
 </script>
 </body>
