@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>event测试</title>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<ul class="click">
+  <li>1</li>
+  <li>2</li>
+</ul>
+
+<ul class="jqueryClick">
+  <li>1</li>
+  <li>2</li>
+</ul>
+<script>
+  var ul = document.querySelector('.click');
+  ul.addEventListener('click', function(e){
+    console.log(e.target.innerHTML);
+  })
+  //添加两次事件就会执行两次
+  var li = document.querySelectorAll('.click li');
+  li.forEach(function(item){
+    item.addEventListener('click',function(e){
+      console.log(e.target.innerHTML);
+    })
+  })
+  var li3 = document.createElement('li');
+  li3.innerHTML = 3;
+  li[0].parentNode.appendChild(li3);
+
+//  $('.jqueryClick li').on('click', function(){
+//    console.log($(this).html());
+//  })
+  $('.jqueryClick').on('click','li', function(){
+    console.log($(this).html());
+  })
+  $('.jqueryClick').append('<li>3</li>');
+</script>
+</body>
+</html>
